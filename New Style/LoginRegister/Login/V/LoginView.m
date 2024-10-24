@@ -14,6 +14,11 @@
 @property (nonatomic, strong) UITextField *accountTextField;   //登录和注册的框
 @property (nonatomic, strong) UITextField *passWordTextField;
 @property (nonatomic, strong) UIButton *loginRegisterButton;   //登录注册按钮
+
+@property (nonatomic, strong) UILabel *permissionsLabel;
+@property (nonatomic, strong) UIImageView *permissionsImageView;
+@property (nonatomic, strong) UIImageView *moreWaysLoginImageView;
+
 @end
 
 @implementation LoginView
@@ -94,6 +99,7 @@
     self.passWordTextField = [[UITextField alloc] init];
     self.passWordTextField.frame = CGRectMake(60, 300, SIZE_WIDTH - 120, 50);
     self.passWordTextField.backgroundColor = [UIColor clearColor];
+    self.passWordTextField.secureTextEntry = YES;
     self.passWordTextField.tintColor = [UIColor whiteColor];
     self.passWordTextField.textColor = [UIColor whiteColor];
     self.passWordTextField.font = [UIFont systemFontOfSize:20];

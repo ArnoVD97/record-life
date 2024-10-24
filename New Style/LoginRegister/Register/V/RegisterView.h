@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RegisterView : UIView
 - (void)viewInit;
 @property (nonatomic, weak) id<RegisterButtonDelegate> registerButtonDelegate;
+@property (nonatomic, strong) NSMutableString *emailString;
+@property (nonatomic, strong) NSMutableArray *textFieldArray;
 @end
 
 NS_ASSUME_NONNULL_END

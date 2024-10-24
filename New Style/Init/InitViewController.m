@@ -37,7 +37,6 @@
     self.beforeImageView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.beforeImageView];
     [self imageViewRun];
-    [self controllerInit];
 }
 
 //第一个视图消失
@@ -58,45 +57,14 @@
     [self.beforeImageView stopAnimating];
 }
 
-//视图控制器提前初始化
-- (void)controllerInit {
-    HomeViewController *homeViewController = [[HomeViewController alloc] init];
-    GameViewController *gameViewController = [[GameViewController alloc] init];
-    ShareViewController *shareViewController = [[ShareViewController alloc] init];
-    PersonalViewController *personalViewController = [[PersonalViewController alloc] init];
-    UIColor *groundColor = [UIColor colorWithRed:(15.0f / 255.0f) green:(14.0f / 255.0f)blue:(18.0f / 255.0f) alpha:1.0f];
-    
-    homeViewController.view.backgroundColor = groundColor;
-    gameViewController.view.backgroundColor = groundColor;
-    shareViewController.view.backgroundColor = groundColor;
-    personalViewController.view.backgroundColor = groundColor;
-    
-    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    UINavigationController *gameNavigationController = [[UINavigationController alloc] initWithRootViewController:gameViewController];
-    UINavigationController *shareNavigationController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
-    UINavigationController *personalNavigationController = [[UINavigationController alloc] initWithRootViewController:personalViewController];
-    self.array = [NSArray arrayWithObjects:homeNavigationController, gameNavigationController, shareNavigationController, personalNavigationController, nil];
-}
+
 
 //启动图结束
 - (void)timeOut {
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = self.array;
-    UIColor *titleColor = [UIColor colorWithRed:(85.0f / 255.0f) green:(83.0f / 255.0f)blue:(99.0f / 255.0f) alpha:1.0f];
-    tabBarController.tabBar.barTintColor = titleColor;
-    self.tabBarController.tabBar.translucent = NO;
-    UIColor *tabBarColor = [UIColor colorWithRed:(32.0f / 255.0f) green:(31.0f / 255.0f)blue:(38.0f / 255.0f) alpha:1.0f];
-    tabBarController.tabBar.backgroundColor = tabBarColor;
-    //推出视图
-    tabBarController.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:tabBarController animated:YES completion:nil];
-    
-
-
     //测试登录注册界面
-//    LoginViewController *a = [LoginViewController new];
-//    a.modalPresentationStyle = UIModalPresentationFullScreen;
-//    [self presentViewController:a animated:YES completion:nil];
+    LoginViewController *a = [LoginViewController new];
+    a.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:a animated:YES completion:nil];
 }
 /*
 #pragma mark - Navigation

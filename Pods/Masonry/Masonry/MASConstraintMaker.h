@@ -47,6 +47,7 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 /**
  *  Provides factory methods for creating MASConstraints.
  *  Constraints are collected until they are ready to be installed
+ *  提供创建MASConstraints的工厂方法。在它们准备安装之前，将收集约束
  *
  */
 @interface MASConstraintMaker : NSObject
@@ -54,6 +55,8 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 /**
  *	The following properties return a new MASViewConstraint
  *  with the first item set to the makers associated view and the appropriate MASViewAttribute
+ *  下面的属性返回一个新的MASViewConstraint，其中第一个属性设置为与制造商关联的视图和相应的MASViewAttribute
+ 
  */
 @property (nonatomic, strong, readonly) MASConstraint *left;
 @property (nonatomic, strong, readonly) MASConstraint *top;
@@ -91,6 +94,7 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
  *  Returns a block which creates a new MASCompositeConstraint with the first item set
  *  to the makers associated view and children corresponding to the set bits in the
  *  MASAttribute parameter. Combine multiple attributes via binary-or.
+ *  返回一个创建新的MASCompositeConstraint 的块，其中第一项设置为与MASAttribute参数中设置位相关联的视图和子元素。通过binary-or组合多个属性。
  */
 @property (nonatomic, strong, readonly) MASConstraint *(^attributes)(MASAttribute attrs);
 
@@ -98,6 +102,9 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
  *	Creates a MASCompositeConstraint with type MASCompositeConstraintTypeEdges
  *  which generates the appropriate MASViewConstraint children (top, left, bottom, right)
  *  with the first item set to the makers associated view
+ *  创建MASCompositeConstraintTypeEdges类型的MASCompositeConstraint
+ 它会生成合适的MASViewConstraint子元素(top, left, bottom, right)
+ 将第一项设置为制造者关联视图
  */
 @property (nonatomic, strong, readonly) MASConstraint *edges;
 
@@ -105,6 +112,9 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
  *	Creates a MASCompositeConstraint with type MASCompositeConstraintTypeSize
  *  which generates the appropriate MASViewConstraint children (width, height)
  *  with the first item set to the makers associated view
+ *  创建MASCompositeConstraintTypeSize类型的MASCompositeConstraint
+ 生成合适的MASViewConstraint子元素(width, height)
+ 将第一项设置为制造者关联视图
  */
 @property (nonatomic, strong, readonly) MASConstraint *size;
 
@@ -112,32 +122,42 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
  *	Creates a MASCompositeConstraint with type MASCompositeConstraintTypeCenter
  *  which generates the appropriate MASViewConstraint children (centerX, centerY)
  *  with the first item set to the makers associated view
+ *  创建MASCompositeConstraintTypeCenter类型的MASCompositeConstraint
+ 生成合适的MASViewConstraint子元素(centerX, centerY)。
+ 将第一项设置为制造者关联视图
  */
 @property (nonatomic, strong, readonly) MASConstraint *center;
 
 /**
  *  Whether or not to check for an existing constraint instead of adding constraint
+ *  是否检查已存在的约束，而不是添加约束
  */
 @property (nonatomic, assign) BOOL updateExisting;
 
 /**
  *  Whether or not to remove existing constraints prior to installing
+ *  是否在安装之前移除现有的约束
  */
 @property (nonatomic, assign) BOOL removeExisting;
 
 /**
  *	initialises the maker with a default view
+ *  用默认视图初始化生成器
  *
  *	@param	view	any MASConstraint are created with this view as the first item
+ *  任何MASConstraint都是以这个视图作为第一项创建的
  *
  *	@return	a new MASConstraintMaker
+ *  一个新的MASConstraintMaker
  */
 - (id)initWithView:(MAS_VIEW *)view;
 
 /**
  *	Calls install method on any MASConstraints which have been created by this maker
+ *  在任何MASConstraints上调用install方法，这些MASConstraints是由这个制造者创建的
  *
  *	@return	an array of all the installed MASConstraints
+ *  一个包含所有已安装MASConstraints的数组
  */
 - (NSArray *)install;
 

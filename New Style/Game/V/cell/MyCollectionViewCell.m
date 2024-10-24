@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     
     self.boundView = [[UIView alloc] init];
-    self.boundView.backgroundColor = [UIColor whiteColor];
+    self.boundView.backgroundColor = [UIColor colorWithRed:(224.0f / 255.0f) green:(224.0f / 255.0f)blue:(224.0f / 255.0f) alpha:1.0f];
     [self addSubview:self.boundView];
     self.mainImageView = [[UIImageView alloc] init];
     [self.boundView addSubview:self.mainImageView];
@@ -34,13 +34,13 @@
     CGFloat iconWidth = 0.0;
     CGFloat iconHeight = 0.0;
     
-    if(imgWidth > imgHeight){
-        iconHeight = roundf(((self.frame.size.width - 16)*imgHeight)/imgWidth);
+    if (imgWidth > imgHeight) {
+        iconHeight = roundf(((self.frame.size.width - 16) * imgHeight) / imgWidth);
         iconWidth = self.frame.size.width - 16;
         [self.boundView setFrame:CGRectMake(0, self.frame.size.height - iconHeight - 16, iconWidth + 16, iconHeight + 16)];
         [self.mainImageView setFrame:CGRectMake(8, 8, iconWidth, iconHeight)];
         [self.deleteButton setFrame:CGRectMake(iconWidth, self.frame.size.height - iconHeight - 20, 20, 20)];
-    }else{
+    } else {
         iconWidth = roundf(((self.frame.size.width - 16) * imgWidth) / imgHeight);
         iconHeight = self.frame.size.height - 16;
         [self.boundView setFrame:CGRectMake(roundf((self.frame.size.width - iconWidth) / 2), 0, iconWidth + 16, iconHeight + 16)];

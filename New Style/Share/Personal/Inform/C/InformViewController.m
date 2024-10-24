@@ -6,15 +6,20 @@
 //
 
 #import "InformViewController.h"
-
+#import "InformView.h"
 @interface InformViewController ()
-
+@property (nonatomic, strong)InformView *informView;
 @end
 
 @implementation InformViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _informView = [[InformView alloc] init];
+    self.informView.frame = self.view.frame;
+    self.navigationItem.title = @"通知";
+    [_informView viewInit];
+    [self.view addSubview:_informView];
     // Do any additional setup after loading the view.
 }
 

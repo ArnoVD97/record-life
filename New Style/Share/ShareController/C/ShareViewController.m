@@ -38,7 +38,11 @@
     photoButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = photoButtonItem;
 }
-
+- (void)viewWillAppear:(BOOL)animated {
+    [self.shareView queryData];
+    [self.shareView.photoCollectionView reloadData];
+    [self.shareView.photoTableView reloadData];
+}
 //跳转到上传界面
 - (void)pressPublishViewController {
     PublishViewController *publishViewController = [[PublishViewController alloc] init];
@@ -49,6 +53,7 @@
         flag = 1;
     }
     publishViewController.flag = flag;
+    publishViewController.shareDataBase = self.shareView.shareDataBase;
     [self.navigationController pushViewController:publishViewController animated:YES];
 }
 

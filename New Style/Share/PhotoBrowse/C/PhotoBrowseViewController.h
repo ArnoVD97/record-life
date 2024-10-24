@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PhotoBrowseViewController : ViewController
 @property (nonatomic, strong) UIImage *shareImage;
+
 @end
 
 NS_ASSUME_NONNULL_END

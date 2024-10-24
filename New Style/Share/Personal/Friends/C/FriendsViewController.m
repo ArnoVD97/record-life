@@ -6,9 +6,11 @@
 //
 
 #import "FriendsViewController.h"
-
+#import "FriendsView.h"
+#define SIZE_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SIZE_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 @interface FriendsViewController ()
-
+@property (nonatomic, strong)FriendsView *collectionView;
 @end
 
 @implementation FriendsViewController
@@ -16,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+   _collectionView = [[FriendsView alloc] init];
+    self.collectionView.frame = self.view.frame;
+    self.navigationItem.title = @"收藏";
+    [_collectionView viewInit];
+    [self.view addSubview:_collectionView];
+    
 }
 
 /*

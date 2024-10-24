@@ -8,7 +8,7 @@
 #import "Masonry.h"
 #define SIZE_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SIZE_HEIGHT ([UIScreen mainScreen].bounds.size.height)
-@interface RegisterView ()
+@interface RegisterView () <UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UILabel *wonderfulLabel;
 @property (nonatomic, strong) UITextField *mainTextField;
@@ -16,12 +16,16 @@
 @property (nonatomic, strong) UIButton *verificationButton;  //验证码
 @property (nonatomic, assign) int countSeconds;
 @property (nonatomic, strong) NSTimer *countDownTimer;
+
+@property (nonatomic, strong) UITextField *textField;
 @end
 
 @implementation RegisterView
 
 - (void)viewInit {
     self.backgroundColor = [UIColor colorWithRed:(15.0f / 255.0f) green:(14.0f / 255.0f)blue:(18.0f / 255.0f) alpha:1.0f];
+    self.emailString = [[NSMutableString alloc] init];
+    self.textFieldArray = [[NSMutableArray alloc] init];
     [self buttonInit];
     [self labelInit];
     [self textFieldInit];
@@ -72,6 +76,8 @@
     [self addSubview:self.verificationButton];
 }
 - (void)pressTimer:(UIButton *)button {
+    self.textField = self.textFieldArray[0];
+    self.emailString = (NSMutableString *)self.textField.text;
     if (button.tag == 159) {
         [self.verificationButton setTitle:@"60s后重发" forState:UIControlStateNormal];
         self.countSeconds = 60;
@@ -79,6 +85,7 @@
         NSRunLoop *runloop = [NSRunLoop currentRunLoop];
         [runloop addTimer:self.countDownTimer forMode:NSRunLoopCommonModes];
         button.userInteractionEnabled = NO;
+        [self.registerButtonDelegate getButton:button];
     }
 }
 - (void)timePress {
@@ -104,17 +111,22 @@
     NSArray *array = @[@"请输入邮箱号", @"请输入验证码", @"请输入密码", @"请再次确认密码"];
     for (int i = 0; i < 4; i++) {
         self.mainTextField = [[UITextField alloc] init];
+        self.mainTextField.delegate = self;
         if (i == 1) {
             self.mainTextField.frame = CGRectMake(60, 220 + i * 80, (SIZE_WIDTH - 120) / 2, 50);
         } else {
             self.mainTextField.frame = CGRectMake(60, 220 + i * 80, SIZE_WIDTH - 120, 50);
         }
         self.mainTextField.tag = i;
+        if (i == 2 || i == 3) {
+            self.mainTextField.secureTextEntry = YES;
+        }
         self.mainTextField.backgroundColor = [UIColor clearColor];
         self.mainTextField.tintColor = [UIColor whiteColor];
         self.mainTextField.textColor = [UIColor whiteColor];
         self.mainTextField.font = [UIFont systemFontOfSize:20];
         self.mainTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:array[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(123.0f / 255.0f) green:(120.0f / 255.0f)blue:(133.0f / 255.0f) alpha:1.0f],NSFontAttributeName:[UIFont systemFontOfSize:20]}];
+        [self.textFieldArray addObject:self.mainTextField];
         [self addSubview:self.mainTextField];
     }
 }
@@ -131,4 +143,5 @@
 - (void)buttonReturn:(UIButton *)button {
     [self.registerButtonDelegate getButton:button];
 }
+
 @end

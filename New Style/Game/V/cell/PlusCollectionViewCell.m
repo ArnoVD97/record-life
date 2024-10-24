@@ -13,7 +13,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     self.mainImageView = [[UIImageView alloc] init];
-    self.mainImageView.image = [UIImage imageNamed:@"jiahao的副本.png"];
+    self.mainImageView.image = [UIImage imageNamed:@"jiahao_round.png"];
     self.mainImageView.layer.masksToBounds = YES;
     self.mainImageView.layer.cornerRadius = (self.frame.size.width - 20) / 2;
     [self.contentView addSubview:self.mainImageView];

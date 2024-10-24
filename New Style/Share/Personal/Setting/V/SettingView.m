@@ -12,7 +12,8 @@
 @implementation SettingView
 
 - (void)viewInit {
-    _settingArray = [[NSArray alloc] initWithObjects:@"恢复购买信息",@"照片裁剪动画",@"照片锐化动画",@"自动照片滤镜",@"保存照片详细信息",@"清除缓存",@"相册排序依据",nil];
+//    self.backgroundColor = [UIColor whiteColor];
+    _settingArray = [[NSArray alloc] initWithObjects:@"账号与安全",@"青少年模式",@"新消息通知",@"通用",@"朋友权限",@"个人信息与权限",@"关于NewStyle",nil];
     self.backgroundColor = [UIColor blackColor];
     _backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_backButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"angleLeft.png"]] forState:UIControlStateNormal];
@@ -20,9 +21,17 @@
     _backButton.frame = CGRectMake(5, 20, 30, 30);
     [_backButton addTarget:self action:@selector(buttonReturn) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_backButton];
-    _settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, SIZE_WIDTH, SIZE_HEIGHT) style:UITableViewStylePlain];
+    _settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 75, SIZE_WIDTH, SIZE_HEIGHT) style:UITableViewStylePlain];
+//    _settingTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    _settingTableView.separatorColor = [UIColor whiteColor];
+ 
     _settingTableView.delegate = self;
     _settingTableView.dataSource = self;
+    _settingTableView.backgroundColor = [UIColor clearColor];
+    [_settingTableView setSeparatorColor:[UIColor blackColor]];
+    _settingTableView.separatorInset = UIEdgeInsetsMake(0,80, 0, 80);
+//    [_settingTableView setSeparatorColor:[UIColor grayColor]];
+    [self addSubview:_settingTableView];
     [_settingTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:@"settingCell"];
     
 }
@@ -31,29 +40,26 @@
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+    return 80;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else if (section == 1) {
-        return 4;
-    } else if (section == 2) {
-        return 3;
-    } else {
-        return 0;
-    }
+    return 7;
     
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SettingTableViewCell *settingCell = [self.settingTableView dequeueReusableCellWithIdentifier:@"settingCell" forIndexPath:indexPath];
+    settingCell.selectionStyle = UITableViewCellSelectionStyleGray;
+//    settingCell.backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed: _imageNameArray[indexPath.row]]];
+    settingCell.titleLabel.text = _settingArray[indexPath.row];
+    [settingCell.contentView addSubview:settingCell.backImageView];
+    settingCell.backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"next.png"]];
+    [settingCell.contentView addSubview:settingCell.backImageView];
+
+    return settingCell;
 }
-*/
+
 
 @end

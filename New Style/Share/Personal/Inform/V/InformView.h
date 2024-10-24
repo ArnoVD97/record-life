@@ -9,7 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InformView : UIView
+@interface InformView : UIView<UITableViewDelegate, UITableViewDataSource>
+
+- (void)viewInit;
 
 @end
 

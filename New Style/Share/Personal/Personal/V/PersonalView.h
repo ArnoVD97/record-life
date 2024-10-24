@@ -24,13 +24,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *signatureLabel;
 @property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) UIView *VIPView;
+@property (nonatomic, strong) UILabel *IPLocation;
+@property (nonatomic, strong) UIImageView *VIPImageView;
+@property (nonatomic, strong) UIImageView *VIPBGView;
 @property (nonatomic, strong) UIButton *stateButton;
 @property (nonatomic, strong) UIButton *mailButton;
 @property (nonatomic, strong) UIButton *positionButton;
 @property (nonatomic, strong) UIButton *heartButton;
+@property (nonatomic, strong) UILabel *VIPLabel;
 @property (nonatomic, strong) UIButtonConfiguration *buttonConfig;
 
-@property (assign, nonatomic) id<jumpDelegate> pageJumpDelegate;
+@property (weak, nonatomic) id<jumpDelegate> pageJumpDelegate;
 - (void)viewInit;
 @end
 

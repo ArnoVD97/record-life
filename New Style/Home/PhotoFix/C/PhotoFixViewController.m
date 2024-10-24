@@ -9,6 +9,7 @@
 #import "PhotoFixView.h"
 #import "Manager.h"
 #import "PublishViewController.h"
+
 @interface PhotoFixViewController () <ButtonDelegate>
 @property (nonatomic, strong) PhotoFixView *photoFixView;
 @property (nonatomic, strong) UIAlertController *saveAlertController;

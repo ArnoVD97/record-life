@@ -33,7 +33,17 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     } else if (button.tag == 1) {   //发表
-        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM月dd日 HH:mm"];
+        NSDate *dateNow = [NSDate date];
+        NSString *timeString = [formatter stringFromDate:dateNow];
+        [self insertPhotoDataBase:[UIImage imageNamed:@"head1.jpg"] andName:@"ArnoVD97" andMainLabel:self.publishView.mainTextView.text andMainImage:self.publishView.mainImageView.image andGood:@"0" andTime:timeString];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"发表成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
+        [alertController addAction:alertAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     } else if (button.tag == 2) {   //添加图片
         //创建sheet提示框，提示选择相机还是相册
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择照片来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -72,5 +82,20 @@
 }
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"publishButton" object:nil];
+}
+
+//FMDB插入数据
+- (void)insertPhotoDataBase:(UIImage *)head andName:(NSString *)name andMainLabel:(NSString *)mainLabel andMainImage:(UIImage *)mainImage andGood:(NSString *)good andTime:(NSString *)time {
+    NSData *headData = UIImagePNGRepresentation(head);
+    NSData *mainImageData = UIImagePNGRepresentation(mainImage);
+    if ([self.shareDataBase open]) {
+        BOOL result = [self.shareDataBase executeUpdate:@"INSERT INTO shareData (head, name, mainLabel, mainImage, good, time) VALUES (?, ?, ?, ?, ?, ?);", headData, name, mainLabel, mainImageData, good, time];
+        if (!result) {
+            NSLog(@"增加数据失败");
+        } else {
+            NSLog(@"增加数据成功");
+        }
+        [self.shareDataBase close];
+    }
 }
 @end

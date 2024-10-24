@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *timeLabel;   //时间文字
 @property (nonatomic, strong) UILabel *goodLabel;   //点赞数量
 @property (nonatomic, strong) UIButton *goodButton;   //点赞按钮
+@property (nonatomic, strong) UIButton *deleteButton;   //删除按钮
 @end
 
 @implementation ShareTableViewCell
@@ -30,8 +31,9 @@
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.goodLabel];
     [self.contentView addSubview:self.goodButton];
+    [self.contentView addSubview:self.deleteButton];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self addShareMasonry];
+    //[self addShareMasonry];
     return self;
 }
 - (UIImageView *)headImageView {
@@ -40,7 +42,7 @@
         _headImageView.backgroundColor = [UIColor grayColor];
         _headImageView.image = [UIImage imageNamed:@"1.jpg"];
         _headImageView.layer.masksToBounds = YES;
-        _headImageView.contentMode = UIViewContentModeScaleAspectFit;
+        //_headImageView.contentMode = UIViewContentModeScaleAspectFit;
         _headImageView.layer.cornerRadius = 0.015 * SIZE_WIDTH;
     }
     return _headImageView;
@@ -70,6 +72,7 @@
         _mainImageView = [[UIImageView alloc] init];
         _mainImageView.image = [UIImage imageNamed:@"1.jpg"];
         _mainImageView.userInteractionEnabled = YES;
+        //_mainImageView.contentMode = UIViewContentModeScaleAspectFit;
         UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressImage:)];
         [_mainImageView addGestureRecognizer:singleTap];
     }
@@ -99,6 +102,16 @@
     }
     return _goodButton;
 }
+
+- (UIButton *)deleteButton {
+    if (!_deleteButton) {
+        _deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+        _deleteButton.titleLabel.textColor = [UIColor colorWithRed:(89.0f / 255.0f) green:(100.0f / 255.0f)blue:(137.0f / 255.0f) alpha:1.0f];
+    }
+    return _deleteButton;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -122,7 +135,8 @@
     [self.mainImageView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.bottom.equalTo(self.contentView).offset(-SIZE_WIDTH * 0.1 - 5);
         make.left.equalTo(self.contentView).offset(20 + SIZE_WIDTH * 0.12 + 10);
-        make.width.mas_equalTo(180);
+        make.right.equalTo(self.contentView).offset(-SIZE_WIDTH * 0.5);
+        //make.width.mas_equalTo(180);
         make.height.mas_equalTo(180);
     }];
     [self.mainLabel mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -145,11 +159,28 @@
     }];
     [self.goodLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.bottom.equalTo(self.contentView).offset(-15);
-        make.right.equalTo(self.contentView).offset(-65);
+        make.right.equalTo(self.contentView).offset(-60);
         make.width.mas_equalTo(25);
         make.height.mas_equalTo(25);
     }];
+    [self.deleteButton mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.bottom.equalTo(self.contentView).offset(-5);
+        make.left.equalTo(self.contentView).offset(20 + SIZE_WIDTH * 0.12 + 60);
+        make.width.mas_equalTo(SIZE_WIDTH * 0.5);
+        make.height.mas_equalTo(SIZE_WIDTH * 0.1);
+    }];
 }
+
+- (void)setModel:(NSDictionary *)dictionary {
+    self.headImageView.image = dictionary[@"head"];
+    self.nameLabel.text = dictionary[@"name"];
+    self.mainLabel.text = dictionary[@"mainLabel"];
+    self.mainImageView.image = dictionary[@"mainImage"];
+    self.goodLabel.text = dictionary[@"good"];
+    self.timeLabel.text = dictionary[@"time"];
+    [self addShareMasonry];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
